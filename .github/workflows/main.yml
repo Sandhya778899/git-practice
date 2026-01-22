@@ -1,4 +1,4 @@
-name: My First CI Pipeline
+name: Parallel Jobs Demo
 
 on:
   push:
@@ -8,13 +8,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Print system info
+      - name: Build step
         run: |
-          echo "Hello DevOps 🚀"
-          uname -a
-          echo "Pipeline is running successfully!"
+          echo "🏗️ Building application..."
+          sleep 10
+          echo "Build completed"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test step
+        run: |
+          echo "🧪 Running tests..."
+          sleep 10
+          echo "Tests passed"
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Security scan
+        run: |
+          echo "🔒 Running security scan..."
+          sleep 10
+          echo "No vulnerabilities found"
