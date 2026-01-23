@@ -1,0 +1,40 @@
+name: Feature Branch CI Pipeline
+
+on:
+  push:
+    branches:
+      - "feature/*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build app
+        run: |
+          echo "🔧 Building app for feature branch"
+          mkdir build
+          echo "feature build" > build/app.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: feature-build
+          path: build/
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: feature-build
+
+      - name: Run tests
+        run: |
+          echo "🧪 Running tests on feature build"
+          cat app.txt
+          echo "✅ Tests successful"
