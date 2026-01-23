@@ -45,3 +45,21 @@ jobs:
           sleep 5
           echo "No issues found"
 
+            deploy:
+    runs-on: ubuntu-latest
+    needs: [test, security-scan]
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-build
+          path: deploy/
+
+      - name: Deploy to server
+        run: |
+          echo "Deploying application..."
+          ls deploy/
+          echo "Deployment successful!"
+
+
