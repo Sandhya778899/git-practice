@@ -1,0 +1,31 @@
+name: Fresh CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build application
+        run: |
+          echo "🔧 Building application..."
+          mkdir build
+          echo "My build output" > build/app.txt
+
+      - name: Run tests
+        run: |
+          echo "🧪 Running tests..."
+          echo "✅ Tests passed"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-build
+          path: build/
