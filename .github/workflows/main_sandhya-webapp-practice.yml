@@ -62,4 +62,5 @@ jobs:
           app-name: 'sandhya-webapp-practice'
           slot-name: 'Production'
           package: .
+
           
